@@ -18,10 +18,10 @@ public class BorrarPoema {
     public static void main(String[] args) {
         poemaDT dto = new poemaDT();
         poemaDAO dao = new poemaDAO();
-        dto.setIdPoema(1);
+        dto.setIdPoema(2);
         try {
             dao.delete(dto);
-            System.out.println("Poema Actualizado");
+            System.out.println("Poema Eliminado");
         } catch(Exception e) {
             
         }

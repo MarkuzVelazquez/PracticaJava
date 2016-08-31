@@ -19,11 +19,11 @@ public class ActualizarPoema {
         poemaDT dto = new poemaDT();
         poemaDAO dao = new poemaDAO();
         dto.setIdPoeta(1);
-        dto.setTitulo("asd");
+        dto.setTitulo("asddasd");
         dto.setTipo("Soura");
         dto.setFecha(Date.valueOf("2015-06-21"));
         dto.setNacionalidad("Brasileña");
-        dto.setIdPoema(1);
+        dto.setIdPoema(2);
         try {
             dao.upDate(dto);
             System.out.println("Poema Actualizado");

@@ -17,7 +17,7 @@ public class borrarPoeta {
     public static void main(String[] args) {
         poetaDT dto = new poetaDT();
         poetaDAO dao = new poetaDAO();
-        dto.setIdPoeta(3);
+        dto.setIdPoeta(1);
         try {
             dao.delete(dto);
             System.out.println("Poeta borrado");

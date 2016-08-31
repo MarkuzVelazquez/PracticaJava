@@ -65,6 +65,7 @@ public class poemaDAO extends conexionDB {
         ps = conn.prepareStatement(SQL_SELECT);
         ps.setString(1, dto.getTitulo());
         ps.setString(2, dto.getTipo());
+        rs=ps.executeQuery();
         if (rs.next()) {
             dto.setIdPoema(rs.getInt("idPoema"));
             dto.setIdPoeta(rs.getInt("idPoeta"));

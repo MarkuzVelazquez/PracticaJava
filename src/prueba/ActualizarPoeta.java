@@ -6,9 +6,8 @@
 
 package prueba;
 
-import escritorDAO.poemaDAO;
+
 import escritorDAO.poetaDAO;
-import escritorDT.poemaDT;
 import escritorDT.poetaDT;
 import java.sql.Date;
 
@@ -18,17 +17,19 @@ import java.sql.Date;
  */
 public class ActualizarPoeta {
     public static void main(String[] args) {
-        poemaDT dto = new poemaDT();
-        poemaDAO dao = new poemaDAO();
-        dto.setIdPoeta(1);
-        dto.setTitulo("asdd");
-        dto.setTipo("Soura");
-        dto.setFecha(Date.valueOf("2015-06-21"));
+        poetaDT dto = new poetaDT();
+        poetaDAO dao = new poetaDAO();
+        dto.setNombre("asdd");
+        dto.setaPaterno("Soura");
+        dto.setaMaterno("eqw");
+        dto.setEmail("Brasileña");
+        dto.setPseudonimo("Brasileña");
+        dto.setSexo("M");
         dto.setNacionalidad("Brasileña");
-        dto.setIdPoema(1);
+        dto.setIdPoeta(1);
         try {
             dao.upDate(dto);
-            System.out.println("Poema actualizado");
+            System.out.println("Poeta actualizado");
         } catch(Exception e) {
             
         }
