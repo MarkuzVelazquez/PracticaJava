@@ -44,4 +44,15 @@ public class conexionDB {
             System.out.println(e);
         }
     }
+    
+    // genera los numeros
+    public Object[] numeros(int inicio, int fin) {
+        Object[] num = new Object[(fin-inicio+1)];
+        int y = 0;
+        for(int x = inicio; x <= fin; x++) {
+            num[y] = x;
+            y++;
+        }
+        return num;
+    }
 }

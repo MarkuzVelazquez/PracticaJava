@@ -6,6 +6,7 @@
 
 package vistas;
 
+import escritorDAO.conexionDB;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author SALA-1
  */
 public class principal extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form NewJFrame
      */

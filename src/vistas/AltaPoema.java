@@ -6,9 +6,11 @@
 
 package vistas;
 
+import escritorDAO.conexionDB;
 import escritorDAO.poemaDAO;
 import escritorDT.poemaDT;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 public class AltaPoema extends javax.swing.JInternalFrame {
     poemaDT dto = new poemaDT();
     poemaDAO dao = new poemaDAO();
+    conexionDB run = new conexionDB();
     /**
      * Creates new form AltaPoema
      */
@@ -49,7 +52,9 @@ public class AltaPoema extends javax.swing.JInternalFrame {
         txtNacionalidad = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtFecha = new javax.swing.JTextField();
+        cbxdia = new javax.swing.JComboBox();
+        cbxmes = new javax.swing.JComboBox();
+        cbxanio = new javax.swing.JComboBox();
 
         jLabel1.setText("Poema");
 
@@ -62,6 +67,12 @@ public class AltaPoema extends javax.swing.JInternalFrame {
         jLabel5.setText("fecha");
 
         jLabel6.setText("nacionalidad");
+
+        txtPoeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPoetaActionPerformed(evt);
+            }
+        });
 
         txtTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +93,22 @@ public class AltaPoema extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        cbxdia.setModel(new javax.swing.DefaultComboBoxModel(run.numeros(1, 31)));
+        cbxdia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxdiaActionPerformed(evt);
+            }
+        });
+
+        cbxmes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        cbxmes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxmesActionPerformed(evt);
+            }
+        });
+
+        cbxanio.setModel(new javax.swing.DefaultComboBoxModel(run.numeros(1950, 2050)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,14 +137,19 @@ public class AltaPoema extends javax.swing.JInternalFrame {
                                     .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtPoeta)
-                                    .addComponent(txtFecha))))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cbxdia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbxmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbxanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +171,9 @@ public class AltaPoema extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxdia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -148,7 +182,7 @@ public class AltaPoema extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,7 +209,17 @@ public class AltaPoema extends javax.swing.JInternalFrame {
             dto.setIdPoeta(Integer.valueOf(txtPoeta.getText()));
             dto.setTitulo(txtTitulo.getText());
             dto.setTipo(txtTipo.getText());
-            dto.setFecha(Date.valueOf(txtFecha.getText()));
+            String dia = cbxdia.getSelectedItem().toString();
+            String mes = cbxmes.getSelectedItem().toString();
+            String anio = cbxanio.getSelectedItem().toString();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMMMM-yyyyy");
+            String fecha = dia + "-" + mes + "-" + anio;
+            JOptionPane.showMessageDialog(this, fecha);
+            long Fecha = df.parse(fecha).getTime();
+            JOptionPane.showMessageDialog(this, Fecha);
+            Date fech = new Date(Fecha);
+            dto.setFecha(fech);
+            
             dto.setNacionalidad(txtNacionalidad.getText());
             dao.create(dto);
             JOptionPane.showMessageDialog(this, "Datos guardados");
@@ -189,8 +233,23 @@ public class AltaPoema extends javax.swing.JInternalFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cbxdiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxdiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxdiaActionPerformed
+
+    private void cbxmesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxmesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxmesActionPerformed
+
+    private void txtPoetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPoetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPoetaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cbxanio;
+    private javax.swing.JComboBox cbxdia;
+    private javax.swing.JComboBox cbxmes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -200,7 +259,6 @@ public class AltaPoema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNacionalidad;
     private javax.swing.JTextField txtPoeta;
     private javax.swing.JTextField txtTipo;
