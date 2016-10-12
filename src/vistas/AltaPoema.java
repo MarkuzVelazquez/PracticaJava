@@ -214,9 +214,7 @@ public class AltaPoema extends javax.swing.JInternalFrame {
             String anio = cbxanio.getSelectedItem().toString();
             SimpleDateFormat df = new SimpleDateFormat("dd-MMMMM-yyyyy");
             String fecha = dia + "-" + mes + "-" + anio;
-            JOptionPane.showMessageDialog(this, fecha);
             long Fecha = df.parse(fecha).getTime();
-            JOptionPane.showMessageDialog(this, Fecha);
             Date fech = new Date(Fecha);
             dto.setFecha(fech);
             
