@@ -121,6 +121,11 @@ public class principal extends javax.swing.JFrame {
         jMenu5.add(jMenuItem5);
 
         jMenuItem6.setText("Lista general");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem6);
 
         jMenu2.add(jMenu5);
@@ -148,6 +153,10 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        ListaPoeta x = new ListaPoeta();
+        pantalla.add(x);
+        pantalla.setLocation(10, 10);
+        x.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
@@ -192,6 +201,14 @@ public class principal extends javax.swing.JFrame {
         pantalla.setLocation(10, 10);
         x.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        ListaPoema x = new ListaPoema();
+        pantalla.add(x);
+        pantalla.setLocation(10, 10);
+        x.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
